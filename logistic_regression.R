@@ -5,12 +5,14 @@ sigm <- function(x) {
 
 logreg <- function(features, target, nslices, momentum = "GD") {
   features$ones <- 1
-  betas <- map(features, function(x) {
+  betas <- map_dbl(features, function(x) {
     0
   })
   betaold = betas
   alpha <- 0.1 / nslices
-  gamma =(momentum == "MO")*0.1
+  gamma =(momentum == "MO")*0.9
+
+  last_cost <- Inf
   cost <- Inf
   out_break <- F
   for (w in 1:20000) {
@@ -22,13 +24,15 @@ logreg <- function(features, target, nslices, momentum = "GD") {
         rowSums() %>%
         sigm()
       cat(sprintf("\rCost: %.4f Epoch: %d Batch: %d", cost, w, k))
-      J <- map(features[indices == k, ], function(x) {
+      
+      J <- map_dbl(features[indices == k, ], function(x) {
         sum(x * (h[indices == k] -
           target[indices == k])) / sum(indices == k)
       })
-      betas <- map2(betas, J, function(x, y) x*(1+gamma) - alpha * y) %>% map2(betaold,
-        function(x,y) x - gamma*y)
-      betaold=betas
+      # betas <- map2(betas, J, function(x, y) x*(1+gamma) - alpha * y) %>% map2(betaold,
+      #   function(x,y) x - gamma*y)
+      betaold=betaold*gamma + J
+      betas = betas - alpha * betaold
     }
     last_cost <- cost
     cost <- -1 / dim(features)[1] * sum(target * log(h) +

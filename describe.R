@@ -1,5 +1,6 @@
-source("summarize.R")
+#! /usr/bin/Rscript
 
+source("summarize.R")
 main = function(){
   args = commandArgs(trailingOnly = T)
   if (length(args) != 1){

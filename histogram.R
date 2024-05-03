@@ -1,3 +1,5 @@
+#! /usr/bin/Rscript
+
 library(ggplot2)
 library(patchwork)
 
@@ -18,11 +20,7 @@ main = function(x){
     geom_density( position = "identity") + labs(y= "Count", color = "House", x = "Care of Magical Creatures")
     p5 = p1 + p2 + p3 + p4
     ggsave("hist.png", p5)
-    if (Sys.info()["sysname"] == "Darwin") {
-      system("open hist.png")
-    } else if (Sys.info()["sysname"] == "Linux") {
-      system("xdg-open hist.png")
-    }
+    system("xdg-open hist.png")
 }
 
 main()

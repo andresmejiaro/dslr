@@ -1,3 +1,5 @@
+#! /usr/bin/Rscript
+
 source("summarize.R")
 source("logistic_regression.R")
 library(optparse)

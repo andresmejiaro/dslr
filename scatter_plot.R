@@ -1,3 +1,5 @@
+#! /usr/bin/Rscript
+
 library(ggplot2)
 library(patchwork)
 
@@ -11,11 +13,7 @@ main = function(x){
     geom_point() + 
      labs(color = "House", y = "Defense Against the Dark Arts")
   ggsave("scatter_plot.png", p1)
-  if (Sys.info()["sysname"] == "Darwin") {
-    system("open scatter_plot.png")
-  } else if (Sys.info()["sysname"] == "Linux") {
-    system("xdg-open scatter_plot.png")
-  }
+  system("xdg-open scatter_plot.png")
 }
 
 main()

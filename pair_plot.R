@@ -1,3 +1,5 @@
+#! /usr/bin/Rscript
+
 suppressPackageStartupMessages({library(GGally, warn.conflicts = F,quietly = T)})
 
 main = function(x){
