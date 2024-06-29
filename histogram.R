@@ -20,7 +20,7 @@ main = function(x){
     geom_density( position = "identity") + labs(y= "Count", color = "House", x = "Care of Magical Creatures")
     p5 = p1 + p2 + p3 + p4
     ggsave("hist.png", p5)
-    system("xdg-open hist.png")
+    system("feh hist.png")
 }
 
 main()
